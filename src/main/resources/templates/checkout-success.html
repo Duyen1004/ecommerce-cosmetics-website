@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Cosmetics - Thanh toán thành công">
+    <meta name="keywords" content="Cosmetics, thanh toán thành công, mua sắm">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cosmetics - Thanh toán thành công</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/elegant-icons.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/nice-select.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/slicknav.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+
+    <style>
+        .success-section {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        .success-section .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .success-section p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        .success-section .btn-primary {
+            background-color: #7fad39;
+            border-color: #7fad39;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .success-section .btn-primary:hover {
+            background-color: #6d9633;
+            border-color: #6d9633;
+        }
+        .success-section .alert {
+            font-family: 'Poppins', sans-serif;
+            border-radius: 6px;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .success-icon {
+            font-size: 60px;
+            color: #7fad39;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<!-- Header Section Begin -->
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i> haduyen2004tt@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__right">
+                        <div sec:authorize="isAuthenticated()" style="display: flex; align-items: center; margin-left: 78%;">
+                            <a th:href="@{/profile}" class="auth-link" style="margin-right: 10px; color: #333; text-decoration: none;"><i class="fa fa-user"></i></a>
+                            <form th:action="@{/logout}" method="post" style="margin: 0;">
+                                <button type="submit" class="auth-link" style="background: none; border: none; color: #333; cursor: pointer; padding: 0;"><i class="fa fa-sign-out"></i> Đăng xuất</button>
+                            </form>
+                        </div>
+                        <div sec:authorize="!isAuthenticated()" style="display: flex; align-items: center; color: black; margin-left: 70%;">
+                            <a th:href="@{/login}" class="auth-btn" style="margin-right: 15px; color: black; text-decoration: none; border-radius: 5px;">Đăng nhập</a>
+                            <a th:href="@{/register}" class="auth-btn" style="color: black; text-decoration: none; border-radius: 5px;">Đăng ký</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a th:href="@{/}" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+                        <img th:src="@{/img/logo.png}" alt="Website Logo" style="height: 60px; object-fit: contain;">
+                        <span style="font-size: 30px; font-weight: bold; color: #333; font-family: 'Playfair Display', serif;">Cosmetic</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu" style="font-family: 'Poppins', sans-serif;">
+                    <ul>
+                        <li><a th:href="@{/}">Trang chủ</a></li>
+                        <li><a th:href="@{/shop}">Cửa hàng</a></li>
+                        <li class="active"><a href="#">Trang khác</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a th:href="@{/cart}">Giỏ hàng</a></li>
+                                <li><a th:href="@{/checkout}">Thanh toán</a></li>
+                                <li><a th:href="@{/orders}">Lịch sử đơn hàng</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__cart">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                        <li><a th:href="@{/cart}"><i class="fa fa-shopping-bag"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</header>
+<!-- Header Section End -->
+
+<!-- Success Section Begin -->
+<section class="success-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Thanh toán thành công</h2>
+                </div>
+                <i class="fa fa-check-circle success-icon"></i>
+                <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+                <p>Cảm ơn bạn đã mua sắm tại Cosmetics! Đơn hàng của bạn đã được xử lý thành công.</p>
+                <div>
+                    <a th:href="@{/shop}" class="btn btn-primary">Tiếp tục mua sắm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Success Section End -->
+
+<!-- Footer Section Begin -->
+<footer class="footer spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer__about">
+                    <div class="footer__about__logo">
+                        <a th:href="@{/}"><img th:src="@{/img/logo.png}" alt=""></a>
+                    </div>
+                    <ul>
+                        <li>Địa chỉ: Tân Xã, Thạch Thất, Hà Nội</li>
+                        <li>Điện thoại: 0398474821</li>
+                        <li>Email: haduyen2004tt@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                <div class="footer__widget">
+                    <h6>Bạn có thể sử dụng</h6>
+                    <ul>
+                        <li><a th:href="@{/}">Trang chủ</a></li>
+                        <li><a th:href="@{/shop}">Cửa hàng</a></li>
+                        <li><a th:href="@{/cart}">Giỏ hàng</a></li>
+                        <li><a th:href="@{/orders}">Lịch sử đơn hàng</a> </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="footer__widget">
+                    <p>Cập nhật thông tin khuyến mãi</p>
+                    <form action="#">
+                        <input type="text" placeholder="Nhập email">
+                        <button type="submit" class="site-btn">Đăng ký</button>
+                    </form>
+                    <div class="footer__widget__social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer__copyright">
+                    <div class="footer__copyright__text">
+                        <p>Copyright ©<script>document.write(new Date().getFullYear());</script><i class="fa fa-heart" aria-hidden="true"></i> by
+                            <a target="_blank">Cosmetics</a></p>
+                    </div>
+                    <div class="footer__copyright__payment"><img th:src="@{/img/payment-item.png}" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Js Plugins -->
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.nice-select.min.js}"></script>
+<script th:src="@{/js/jquery-ui.min.js}"></script>
+<script th:src="@{/js/jquery.slicknav.js}"></script>
+<script th:src="@{/js/mixitup.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hồ Sơ Người Dùng - Cosmetics</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+  <style>
+    body {
+      background: linear-gradient(135deg, #e0f7fa, #fff);
+      font-family: 'Roboto', sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 40px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border: 1px solid #d8e6ff;
+    }
+
+    h2 {
+      margin-bottom: 40px;
+      color: #2a6eb6;
+      font-weight: 700;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    .profile-info {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .profile-info label {
+      font-weight: 600;
+      color: #1a2e44;
+      margin: 0;
+      min-width: 120px;
+    }
+
+    .profile-info p {
+      font-size: 1rem;
+      color: #2e3b4e;
+      margin: 0;
+      flex: 1;
+    }
+
+    .two-column {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .btn-primary {
+      background-color: #2a6eb6;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-weight: 700;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      width: 100%;
+      max-width: 200px;
+      height: 48px;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #225d9c;
+      transform: translateY(-2px);
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .form-footer a {
+      color: #2a6eb6;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+    .alert {
+      margin-bottom: 20px;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 20px;
+      color: #28a745;
+    }
+
+    @media (max-width: 768px) {
+      .profile-container {
+        padding: 20px;
+        margin: 20px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .two-column {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .column {
+        min-width: 100%;
+      }
+
+      .profile-info {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .profile-info label {
+        min-width: auto;
+      }
+
+      .btn-primary {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="profile-container">
+    <h2>Hồ Sơ Người Dùng</h2>
+    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+    <div class="two-column">
+      <div class="column">
+        <div class="profile-info">
+          <label>Họ:</label>
+          <p th:text="${user.lastName}"></p>
+        </div>
+        <div class="profile-info">
+          <label>Tên:</label>
+          <p th:text="${user.firstName}"></p>
+        </div>
+        <div class="profile-info">
+          <label>Email:</label>
+          <p th:text="${user.email}"></p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="profile-info">
+          <label>Giới tính:</label>
+          <p th:text="${user.gender}"></p>
+        </div>
+        <div class="profile-info">
+          <label>Ngày sinh:</label>
+          <p th:text="${#temporals.format(user.dob, 'dd/MM/yyyy')}"></p>
+        </div>
+        <div class="profile-info">
+          <label>Số điện thoại:</label>
+          <p th:text="${user.phone}"></p>
+        </div>
+      </div>
+    </div>
+    <div class="profile-info">
+      <label>Địa chỉ:</label>
+      <p th:text="${user.address}"></p>
+    </div>
+
+    <div class="text-center">
+      <a th:href="@{/profile/edit}" class="btn btn-primary" style="margin-left: 35%;">Chỉnh sửa hồ sơ</a>
+    </div>
+
+    <div class="form-footer">
+      <a th:href="@{/}">Quay lại</a>
+    </div>
+  </div>
+</div>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
